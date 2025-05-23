@@ -1,5 +1,18 @@
 {
 	"name": "jobless",
 	"private": true,
-	"version": "0.0.0"
+	"version": "0.0.0",
+	"scripts": {
+		"b": "pnpm --filter @jobless/backend",
+		"f": "pnpm --filter @jobless/frontend",
+		"dev": "pnpm -r --parallel dev",
+		"types": "concurrently 'pnpm b types' 'pnpm f types'",
+		"prettify": "pnpm -r parallel prettify"
+	},
+	"devDependencies": {
+		"concurrently": "^9.1.2",
+		"rimraf": "^6.0.1",
+		"tsx": "^4.19.4",
+		"typescript": "^5.8.3"
+	}
 }
