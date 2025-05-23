@@ -1,6 +1,7 @@
 {
-	"name": "backend",
-	"version": "1.0.0",
+	"name": "@jobless/backend",
+	"private": true,
+	"version": "0.0.0",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
@@ -14,9 +15,11 @@
 	"type": "module",
 	"dependencies": {
 		"@trpc/server": "^11.1.2",
+		"cors": "^2.8.5",
 		"express": "^5.1.0"
 	},
 	"devDependencies": {
+		"@types/cors": "^2.8.18",
 		"@types/express": "^5.0.2",
 		"@types/node": "^22.15.21",
 		"rimraf": "^6.0.1",
