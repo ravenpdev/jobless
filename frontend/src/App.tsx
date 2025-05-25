@@ -1,9 +1,9 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { TRPCProvider } from "./utils/trpc";
-import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import type { TrpcRouter } from "@jobless/backend/src/trpc";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { useState } from "react";
 import { HomePage } from "./pages/HomePage";
+import { TRPCProvider } from "./utils/trpc";
 
 function makeQueryClient() {
 	return new QueryClient({

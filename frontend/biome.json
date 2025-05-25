@@ -4,10 +4,10 @@
 	"files": { "ignoreUnknown": false, "ignore": [] },
 	"formatter": { "enabled": true, "indentStyle": "tab" },
 	"organizeImports": { "enabled": true },
+	"extends": ["../biome.json"],
 	"linter": {
 		"enabled": true,
-		"rules": { "recommended": false },
-		"ignore": ["dist"]
+		"rules": { "recommended": false }
 	},
 	"javascript": { "formatter": { "quoteStyle": "double" } },
 	"overrides": [

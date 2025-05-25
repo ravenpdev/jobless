@@ -16,8 +16,6 @@ export function HomePage() {
 		return <span>Error: {error.message}</span>;
 	}
 
-	// console.log(jobListingsQuery.data);
-
 	return (
 		<main>
 			<h2>All Jobs</h2>
