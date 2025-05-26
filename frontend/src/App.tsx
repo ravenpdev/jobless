@@ -62,26 +62,4 @@ export function App() {
 			</TRPCProvider>
 		</QueryClientProvider>
 	);
-	// return (
-	// 	<div>
-	// 		<header>
-	// 			<h1>Jobless</h1>
-	// 		</header>
-
-	// 		<main>
-	// 			<section>
-	// 				{jobListings.map((jobListing) => (
-	// 					<div key={jobListing.id}>
-	// 						<h2>{jobListing.title}</h2>
-	// 						<p>{jobListing.description}</p>
-	// 					</div>
-	// 				))}
-	// 			</section>
-	// 		</main>
-
-	// 		<footer>
-	// 			<p>&cpy; 2025</p>
-	// 		</footer>
-	// 	</div>
-	// );
 }

@@ -8,7 +8,7 @@
 		"dev": "pnpm -r --parallel dev",
 		"types": "concurrently 'pnpm b types' 'pnpm f types'",
 		"lint": "concurrently 'pnpm b lint' 'pnpm f lint'",
-		"prettify": "pnpm -r parallel prettify",
+		"prettify": "pnpm -r --parallel prettify",
 		"prepare": "husky"
 	},
 	"devDependencies": {
