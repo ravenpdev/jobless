@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 import { useTRPC } from "../../utils/trpc";
 
 export function HomePage() {
@@ -22,7 +23,9 @@ export function HomePage() {
 			<section>
 				{data?.jobListings.map((job) => (
 					<div key={job.id}>
-						<h2>{job.title}</h2>
+						<h2>
+							<Link to={`/jobs/${job.id}`}>{job.title}</Link>
+						</h2>
 						<p>{job.description}</p>
 					</div>
 				))}

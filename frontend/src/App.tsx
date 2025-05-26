@@ -2,7 +2,14 @@ import type { TrpcRouter } from "@jobless/backend/src/trpc";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
+import { JobDetailPage } from "./pages/JobDetailPage";
+import {
+	getHomeRoute,
+	getJobDetailRoute,
+	getJobDetailRouteParams,
+} from "./routes";
 import { TRPCProvider } from "./utils/trpc";
 
 function makeQueryClient() {
@@ -52,13 +59,15 @@ export function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
-				<div>
-					<header>
-						<h1>App</h1>
-					</header>
-
-					<HomePage />
-				</div>
+				<BrowserRouter>
+					<Routes>
+						<Route path={getHomeRoute()} element={<HomePage />} />
+						<Route
+							path={getJobDetailRoute(getJobDetailRouteParams)}
+							element={<JobDetailPage />}
+						/>
+					</Routes>
+				</BrowserRouter>
 			</TRPCProvider>
 		</QueryClientProvider>
 	);
