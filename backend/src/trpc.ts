@@ -1,31 +1,33 @@
 import { initTRPC } from "@trpc/server";
 import { z } from "zod";
 
+// title: string;
+// company: string;
+// location: string;
+// rating: number;
+// jobType: string;
+// jobDescription: string;
+
 const jobListings = [
 	{
 		id: 1,
 		title: "ReactJS Developer",
-		description: "lorem ipsum dolor emmet",
+		company: "FrontendDev",
+		location: "Philippines",
+		rating: 4.8,
+		jobType: "full-time",
+		jobDescription:
+			"Lorem ipsum is a placeholder text derived from a Latin text by Cicero, used in graphic design, publishing, and web development. Learn how it was discovered, how it works, and how it differs from other types of filler text.",
 	},
 	{
 		id: 2,
-		title: "Backend Developer",
-		description: "lorem ipsum dolor emmet",
-	},
-	{
-		id: 3,
-		title: "SQL Developer",
-		description: "lorem ipsum dolor emmet",
-	},
-	{
-		id: 4,
-		title: "Go Developer",
-		description: "lorem ipsum dolor emmet",
-	},
-	{
-		id: 5,
-		title: "Rust Developer",
-		description: "lorem ipsum dolor emmet",
+		title: "Fullstack Developer",
+		company: "FullstackDev",
+		location: "Philippines",
+		rating: 4.5,
+		jobType: "full-time",
+		jobDescription:
+			"Lorem ipsum is a placeholder text derived from a Latin text by Cicero, used in graphic design, publishing, and web development. Learn how it was discovered, how it works, and how it differs from other types of filler text.",
 	},
 ];
 

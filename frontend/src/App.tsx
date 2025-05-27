@@ -7,12 +7,8 @@ import { Layout } from "./components/Layout";
 import { HomePage } from "./pages/HomePage";
 import { JobDetailPage } from "./pages/JobDetailPage";
 import { JobPage } from "./pages/JobPage";
-import {
-	getHomeRoute,
-	getJobDetailRoute,
-	getJobDetailRouteParams,
-	getJobRoute,
-} from "./routes";
+import { SignInPage } from "./pages/SignInPage";
+import * as routes from "./routes";
 import { TRPCProvider } from "./utils/trpc";
 
 function makeQueryClient() {
@@ -65,13 +61,14 @@ export function App() {
 				<BrowserRouter>
 					<Routes>
 						<Route element={<Layout />}>
-							<Route path={getHomeRoute()} element={<HomePage />} />
-							<Route path={getJobRoute()} element={<JobPage />} />
+							<Route path={routes.getHomeRoute()} element={<HomePage />} />
+							<Route path={routes.getJobRoute()} element={<JobPage />} />
 							<Route
-								path={getJobDetailRoute(getJobDetailRouteParams)}
+								path={routes.getJobDetailRoute(routes.getJobDetailRouteParams)}
 								element={<JobDetailPage />}
 							/>
 						</Route>
+						<Route path={routes.getSignInRoute()} element={<SignInPage />} />
 					</Routes>
 				</BrowserRouter>
 			</TRPCProvider>
