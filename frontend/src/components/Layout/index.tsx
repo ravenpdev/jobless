@@ -1,5 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
-import * as routes from "../../routes";
+import * as routes from "../../lib/routes";
 
 export function Layout() {
 	return (

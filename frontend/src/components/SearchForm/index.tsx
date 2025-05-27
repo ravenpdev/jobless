@@ -17,6 +17,7 @@ export function SearchForm({
 
 	function onSubmitHandle(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
+
 		searchHandle(searchKeyword, searchLocation);
 	}
 
@@ -30,7 +31,7 @@ export function SearchForm({
 					<Search className="text-slate-500" />
 					<input
 						className="focus:ring-0 focus:outline-0 flex-1 py-1.5"
-						type="text"
+						type="search"
 						placeholder="Job title, keywords, or company"
 						value={searchKeyword}
 						onChange={(e) => setSearchKeyword(e.target.value)}
@@ -40,7 +41,7 @@ export function SearchForm({
 					<MapPin className="text-slate-500" />
 					<input
 						className="focus:ring-0 focus:outline-0 flex-1 py-1.5"
-						type="text"
+						type="search"
 						placeholder='City, state, zip code, or "remote"'
 						value={searchLocation}
 						onChange={(e) => setSearchLocation(e.target.value)}

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { useTRPC } from "../../utils/trpc";
+import { useTRPC } from "../../lib/trpc";
 
 export function JobDetailPage() {
 	const { jobId } = useParams() as { jobId: string };

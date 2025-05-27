@@ -29,14 +29,39 @@ const jobListings = [
 		jobDescription:
 			"Lorem ipsum is a placeholder text derived from a Latin text by Cicero, used in graphic design, publishing, and web development. Learn how it was discovered, how it works, and how it differs from other types of filler text.",
 	},
+	{
+		id: 3,
+		title: "NodeJs Developer",
+		company: "BackendDev",
+		location: "Philippines",
+		rating: 4.7,
+		jobType: "full-time",
+		jobDescription:
+			"Lorem ipsum is a placeholder text derived from a Latin text by Cicero, used in graphic design, publishing, and web development. Learn how it was discovered, how it works, and how it differs from other types of filler text.",
+	},
 ];
 
 const trpc = initTRPC.create();
 
 export const trpcRouter = trpc.router({
-	getJobListings: trpc.procedure.query(() => {
-		return { jobListings };
-	}),
+	getJobListings: trpc.procedure
+		.input(
+			z.object({
+				q: z.string().default(""),
+				l: z.string().default(""),
+				sortBy: z.enum(["relevance", "date"]).default("relevance"),
+			}),
+		)
+		.query(({ input }) => {
+			if (input.q) {
+				const filteredJobListings = jobListings.filter((job) =>
+					job.title.toLocaleLowerCase().includes(input.q.toLocaleLowerCase()),
+				);
+
+				return { jobListings: filteredJobListings };
+			}
+			return { jobListings };
+		}),
 	getJobDetail: trpc.procedure
 		.input(
 			z.object({

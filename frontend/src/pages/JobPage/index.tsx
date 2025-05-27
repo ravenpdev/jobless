@@ -3,18 +3,22 @@ import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { JobCard } from "../../components/JobCard";
 import { SearchForm } from "../../components/SearchForm";
-import { useTRPC } from "../../utils/trpc";
+import { useTRPC } from "../../lib/trpc";
 
 type SortBy = "relevance" | "date";
 
 export function JobPage() {
-	const [searchParams] = useSearchParams();
+	const [searchParams, setSearchParams] = useSearchParams();
 	const navigate = useNavigate();
 	const trpc = useTRPC();
 
 	const [sortBy, setSortBy] = useState<SortBy>("relevance");
 	const { data, error, isLoading, isFetching, isError } = useQuery(
-		trpc.getJobListings.queryOptions(),
+		trpc.getJobListings.queryOptions({
+			q: searchParams.get("q") ?? "",
+			l: searchParams.get("l") ?? "",
+			sortBy: (searchParams.get("sortBy") as SortBy) ?? "relevance",
+		}),
 	);
 
 	if (isLoading || isFetching) {
@@ -27,7 +31,11 @@ export function JobPage() {
 
 	function sortByHandle(value: SortBy) {
 		setSortBy(value);
-		searchParams.set("sortBy", value);
+		setSearchParams((searchParams) => {
+			searchParams.set("sortBy", value);
+
+			return searchParams;
+		});
 		navigate({
 			pathname: "/jobs",
 			search: `${searchParams.toString()}`,
@@ -35,12 +43,16 @@ export function JobPage() {
 	}
 
 	function searchHandle(keyword: string, location: string) {
-		const params = searchParams;
-		params.set("q", keyword);
-		params.set("l", location);
+		setSearchParams((searchParams) => {
+			searchParams.set("q", keyword);
+			searchParams.set("l", location);
+
+			return searchParams;
+		});
+
 		navigate({
 			pathname: "/jobs",
-			search: `${params.toString()}`,
+			search: `${searchParams.toString()}`,
 		});
 	}
 
@@ -56,7 +68,10 @@ export function JobPage() {
 
 			<section className="mt-4">
 				<div className="max-w-5xl mx-auto">
-					<h2 className="text-slate-500 text-xs">Find your dream job!</h2>
+					<h2 className="text-slate-500 text-xs">
+						{searchParams.get("q")} jobs {searchParams.get("l") ? "in" : ""}{" "}
+						{searchParams.get("l")}
+					</h2>
 
 					<div className="mt-2">
 						<p className="text-sm">

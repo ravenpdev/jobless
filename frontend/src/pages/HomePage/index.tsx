@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { JobCard } from "../../components/JobCard";
 import { SearchForm } from "../../components/SearchForm";
-import { useTRPC } from "../../utils/trpc";
+import { useTRPC } from "../../lib/trpc";
 
 export function HomePage() {
 	const navigate = useNavigate();
@@ -10,7 +10,7 @@ export function HomePage() {
 	const trpc = useTRPC();
 
 	const { data, error, isLoading, isFetching, isError } = useQuery(
-		trpc.getJobListings.queryOptions(),
+		trpc.getJobListings.queryOptions({}),
 	);
 
 	if (isLoading || isFetching) {

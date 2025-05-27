@@ -4,12 +4,12 @@ import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout";
+import * as routes from "./lib/routes";
+import { TRPCProvider } from "./lib/trpc";
 import { HomePage } from "./pages/HomePage";
 import { JobDetailPage } from "./pages/JobDetailPage";
 import { JobPage } from "./pages/JobPage";
 import { SignInPage } from "./pages/SignInPage";
-import * as routes from "./routes";
-import { TRPCProvider } from "./utils/trpc";
 
 function makeQueryClient() {
 	return new QueryClient({
