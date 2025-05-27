@@ -3,12 +3,15 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Layout } from "./components/Layout";
 import { HomePage } from "./pages/HomePage";
 import { JobDetailPage } from "./pages/JobDetailPage";
+import { JobPage } from "./pages/JobPage";
 import {
 	getHomeRoute,
 	getJobDetailRoute,
 	getJobDetailRouteParams,
+	getJobRoute,
 } from "./routes";
 import { TRPCProvider } from "./utils/trpc";
 
@@ -61,11 +64,14 @@ export function App() {
 			<TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
 				<BrowserRouter>
 					<Routes>
-						<Route path={getHomeRoute()} element={<HomePage />} />
-						<Route
-							path={getJobDetailRoute(getJobDetailRouteParams)}
-							element={<JobDetailPage />}
-						/>
+						<Route element={<Layout />}>
+							<Route path={getHomeRoute()} element={<HomePage />} />
+							<Route path={getJobRoute()} element={<JobPage />} />
+							<Route
+								path={getJobDetailRoute(getJobDetailRouteParams)}
+								element={<JobDetailPage />}
+							/>
+						</Route>
 					</Routes>
 				</BrowserRouter>
 			</TRPCProvider>

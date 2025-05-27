@@ -1,16 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { MapPin, Search } from "lucide-react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTRPC } from "../../utils/trpc";
 
-export function HomePage() {
-	const navigate = useNavigate();
-
-	const [searchKeyword, setSearchKeyword] = useState<string>("");
-	const [searchLocation, setSearchLocation] = useState<string>("");
-
+export function JobPage() {
 	const trpc = useTRPC();
+
+	const [sortBy, setSortBy] = useState<"relevance" | "date">("relevance");
 
 	const { data, error, isLoading, isFetching, isError } = useQuery(
 		trpc.getJobListings.queryOptions(),
@@ -24,29 +21,21 @@ export function HomePage() {
 		return <span>Error: {error.message}</span>;
 	}
 
-	function searchHandle() {
-		navigate({
-			pathname: "/jobs",
-			search: `?q=${searchKeyword}&l=${searchLocation}`,
-		});
+	function sortByHandle() {
+		setSortBy((prev) => (prev === "date" ? "relevance" : "date"));
 	}
 
 	return (
 		<>
 			<section className="py-8 border-b-1 border-b-slate-200">
 				<div className="max-w-4xl mx-auto">
-					<form
-						action={searchHandle}
-						className="flex flex-col md:flex-row gap-0 md:gap-4 md:border-1 md:border-slate-500 p-1 rounded"
-					>
+					<form className="flex flex-col md:flex-row gap-0 md:gap-4 md:border-1 md:border-slate-500 p-1 rounded">
 						<div className="flex-1 flex items-center gap-4 px-4 border-1 md:border-0">
 							<Search className="text-slate-500" />
 							<input
 								className="focus:ring-0 focus:outline-0 flex-1 py-1.5"
 								type="text"
 								placeholder="Job title, keywords, or company"
-								value={searchKeyword}
-								onChange={(e) => setSearchKeyword(e.target.value)}
 							/>
 						</div>
 						<div className="flex-1 flex items-center gap-4 px-4 border-1 border-t-0 md:border-0">
@@ -55,8 +44,6 @@ export function HomePage() {
 								className="focus:ring-0 focus:outline-0 flex-1"
 								type="text"
 								placeholder='City, state, zip code, or "remote"'
-								value={searchLocation}
-								onChange={(e) => setSearchLocation(e.target.value)}
 							/>
 						</div>
 						<button
@@ -69,11 +56,32 @@ export function HomePage() {
 				</div>
 			</section>
 
-			<section className="mt-4">
+			<section className="mt-8">
 				<div className="max-w-5xl mx-auto">
-					<h2 className="text-slate-500 text-xs">Most recent jobs</h2>
+					<h2 className="text-slate-500 text-xs">Find your dream job!</h2>
+
+					<div className="mt-4">
+						<p className="text-sm">
+							Sort by:{" "}
+							<button
+								className={`cursor-pointer ${sortBy === "relevance" ? "font-bold" : ""}`}
+								type="button"
+								onClick={sortByHandle}
+							>
+								relevance
+							</button>{" "}
+							-{" "}
+							<button
+								className={`cursor-pointer ${sortBy === "date" ? "font-bold" : ""}`}
+								type="button"
+								onClick={sortByHandle}
+							>
+								date
+							</button>
+						</p>
+					</div>
 				</div>
-				<div className="max-w-5xl mt-4 mx-auto gap-4 grid grid-cols-4">
+				<div className="max-w-5xl mt-8 mx-auto gap-4 grid grid-cols-4">
 					<div className="col-span-2">
 						<section className="space-y-4">
 							{data?.jobListings.map((job) => (

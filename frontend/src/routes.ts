@@ -8,9 +8,11 @@ const getRouteParams = <T extends Record<string, boolean>>(
 
 export const getHomeRoute = () => "/";
 
+export const getJobRoute = () => "/jobs";
+
 export const getJobDetailRouteParams = getRouteParams({ jobId: true });
-type GetJobDetailParamRouteParams = typeof getJobDetailRouteParams;
-export const getJobDetailRoute = ({ jobId }: GetJobDetailParamRouteParams) =>
+type GetJobDetailRouteParams = typeof getJobDetailRouteParams;
+export const getJobDetailRoute = ({ jobId }: GetJobDetailRouteParams) =>
 	`/jobs/${jobId}`;
 
 // export const getJobDetailRoute = ({ jobId }: { jobId: string }) =>

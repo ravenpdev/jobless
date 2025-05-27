@@ -1,4 +1,5 @@
 import { initTRPC } from "@trpc/server";
+import { z } from "zod";
 
 const jobListings = [
 	{
@@ -32,9 +33,19 @@ const trpc = initTRPC.create();
 
 export const trpcRouter = trpc.router({
 	getJobListings: trpc.procedure.query(() => {
-		// throw new Error("Test Err");
 		return { jobListings };
 	}),
+	getJobDetail: trpc.procedure
+		.input(
+			z.object({
+				jobId: z.string(),
+			}),
+		)
+		.query(({ input }) => {
+			const job = jobListings.find((job) => job.id === Number(input.jobId));
+			// if (!job) throw new Error(`Job ${input.jobId} not found`);
+			return { job: job || null };
+		}),
 });
 
 export type TrpcRouter = typeof trpcRouter;
