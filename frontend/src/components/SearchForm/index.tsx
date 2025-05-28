@@ -1,5 +1,6 @@
 import { MapPin, Search } from "lucide-react";
 import { type FormEvent, useState } from "react";
+import { Wrapper } from "../Wrapper/Wrapper";
 
 interface Props {
 	searchHandle: (keyword: string, location: string) => void;
@@ -22,7 +23,7 @@ export function SearchForm({
 	}
 
 	return (
-		<div className="max-w-4xl mx-auto">
+		<Wrapper>
 			<form
 				onSubmit={onSubmitHandle}
 				className="flex flex-col md:flex-row gap-0 md:gap-4 md:border-1 md:border-slate-500 p-1 rounded"
@@ -54,6 +55,6 @@ export function SearchForm({
 					Find Jobs
 				</button>
 			</form>
-		</div>
+		</Wrapper>
 	);
 }

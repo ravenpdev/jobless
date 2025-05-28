@@ -12,6 +12,8 @@ export const getJobRoute = () => "/jobs";
 
 export const getSignInRoute = () => "/signin";
 
+export const getNewJobListingRoute = () => "/jobs/new";
+
 export const getJobDetailRouteParams = getRouteParams({ jobId: true });
 type GetJobDetailRouteParams = typeof getJobDetailRouteParams;
 export const getJobDetailRoute = ({ jobId }: GetJobDetailRouteParams) =>

@@ -1,15 +1,16 @@
+import { Layout } from "@/components/Layout";
+import * as routes from "@/lib/routes";
+import { TRPCProvider } from "@/lib/trpc";
+import { HomePage } from "@/pages/HomePage";
+import { JobDetailPage } from "@/pages/JobDetailPage";
+import { JobPage } from "@/pages/JobPage";
+import { NewJobListingPage } from "@/pages/NewJobListingPage";
+import { SignInPage } from "@/pages/SignInPage";
 import type { TrpcRouter } from "@jobless/backend/src/trpc";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Layout } from "./components/Layout";
-import * as routes from "./lib/routes";
-import { TRPCProvider } from "./lib/trpc";
-import { HomePage } from "./pages/HomePage";
-import { JobDetailPage } from "./pages/JobDetailPage";
-import { JobPage } from "./pages/JobPage";
-import { SignInPage } from "./pages/SignInPage";
 
 function makeQueryClient() {
 	return new QueryClient({
@@ -63,6 +64,10 @@ export function App() {
 						<Route element={<Layout />}>
 							<Route path={routes.getHomeRoute()} element={<HomePage />} />
 							<Route path={routes.getJobRoute()} element={<JobPage />} />
+							<Route
+								path={routes.getNewJobListingRoute()}
+								element={<NewJobListingPage />}
+							/>
 							<Route
 								path={routes.getJobDetailRoute(routes.getJobDetailRouteParams)}
 								element={<JobDetailPage />}

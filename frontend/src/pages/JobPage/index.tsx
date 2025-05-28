@@ -1,9 +1,9 @@
+import { JobCard } from "@/components/JobCard";
+import { SearchForm } from "@/components/SearchForm";
+import { useTRPC } from "@/lib/trpc";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { JobCard } from "../../components/JobCard";
-import { SearchForm } from "../../components/SearchForm";
-import { useTRPC } from "../../lib/trpc";
 
 type SortBy = "relevance" | "date";
 

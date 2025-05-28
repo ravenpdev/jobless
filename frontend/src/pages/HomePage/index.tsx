@@ -1,7 +1,8 @@
+import { JobCard } from "@/components/JobCard";
+import { SearchForm } from "@/components/SearchForm";
+import { Wrapper } from "@/components/Wrapper/Wrapper";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { JobCard } from "../../components/JobCard";
-import { SearchForm } from "../../components/SearchForm";
 import { useTRPC } from "../../lib/trpc";
 
 export function HomePage() {
@@ -39,10 +40,10 @@ export function HomePage() {
 			</section>
 
 			<section className="mt-4 px-4 md:px-0">
-				<div className="max-w-5xl mx-auto">
+				<Wrapper>
 					<h2 className="text-slate-500 text-xs">Most recent jobs</h2>
-				</div>
-				<div className="max-w-5xl mt-4 mx-auto gap-4 grid grid-cols-1 md:grid-cols-4">
+				</Wrapper>
+				<Wrapper className="mt-4 gap-4 grid grid-cols-1 md:grid-cols-4">
 					<div className="col-span-1 md:col-span-2">
 						<section className="space-y-4">
 							{data?.jobListings.map((job) => (
@@ -53,7 +54,7 @@ export function HomePage() {
 					<div className="md:col-span-2 hidden md:block">
 						<p>job details</p>
 					</div>
-				</div>
+				</Wrapper>
 			</section>
 		</>
 	);
