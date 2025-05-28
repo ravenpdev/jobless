@@ -1,32 +1,30 @@
-import { Input } from "@/components/Input";
 import { Wrapper } from "@/components/Wrapper/Wrapper";
-import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { type SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
 
-type JobType = "full-time" | "part-time";
+const formSchema = z.object({
+	title: z.string().min(1, "title is required."),
+	company: z.string().min(1, "company name is required."),
+	location: z.string().min(1, "location is required."),
+	// jobType: z.enum(["full-time", "part-time"]),
+	jobType: z.string().min(1, "job type is required."),
+	description: z.string().min(1, "description is required."),
+});
 
-interface IFormInput {
-	title: string;
-	company: string;
-	location: string;
-	jobType: JobType | null;
-	description: string;
-}
-
-const formInitialValue: IFormInput = {
-	title: "",
-	company: "",
-	location: "",
-	jobType: null,
-	description: "",
-};
+type FormValues = z.infer<typeof formSchema>;
 
 export function NewJobListingPage() {
-	const [state, setState] = useState(formInitialValue);
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, dirtyFields },
+	} = useForm({
+		resolver: zodResolver(formSchema),
+	});
 
-	const { register, handleSubmit } = useForm<IFormInput>();
-
-	const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+	const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
 
 	return (
 		<div>
@@ -34,57 +32,54 @@ export function NewJobListingPage() {
 				<h1>Create New Job</h1>
 
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<Input label="Title" {...register("title")} />
+					<div>
+						<label htmlFor="title">Title</label>
+						<input
+							id="title"
+							{...register("title")}
+							aria-invalid={errors.title ? "true" : "false"}
+						/>
+						{errors.title && (
+							<p className="text-xs text-red-500">{errors.title.message}</p>
+						)}
+					</div>
 					<div>
 						<label htmlFor="company">Company name</label>
-						<input
-							id="company"
-							value={state.company}
-							onChange={(e) => setState({ ...state, company: e.target.value })}
-							type="text"
-						/>
+						<input id="company" {...register("company")} />
+						{errors.company && dirtyFields.company && (
+							<p className="text-xs text-red-500">{errors.company.message}</p>
+						)}
 					</div>
 					<div>
 						<label htmlFor="location">Location</label>
-						<input
-							id="location"
-							value={state.location}
-							onChange={(e) => setState({ ...state, location: e.target.value })}
-							type="text"
-						/>
+						<input id="location" {...register("location")} />
+						{errors.location && dirtyFields.location && (
+							<p className="text-xs text-red-500">{errors.location.message}</p>
+						)}
 					</div>
 					<div>
 						<label htmlFor="jobType">Job Type</label>
-						<select
-							name="jobType"
-							id="jobType"
-							onChange={(e) =>
-								setState({ ...state, jobType: e.target.value as JobType })
-							}
-						>
+						<select id="jobType" {...register("jobType")}>
 							<option value="">Select Job Type</option>
 							<option value="fulltime">Fulltime</option>
 							<option value="parttime">Parttime</option>
 						</select>
+						{errors.jobType && dirtyFields.jobType && (
+							<p className="text-xs text-red-500">{errors.jobType.message}</p>
+						)}
 					</div>
 					<div>
 						<label htmlFor="description">Description</label>
-						<textarea
-							id="description"
-							value={state.description}
-							onChange={(e) =>
-								setState({ ...state, description: e.target.value })
-							}
-							name="description"
-						/>
+						<textarea id="description" {...register("description")} />
+						{errors.description && dirtyFields.description && (
+							<p className="text-xs text-red-500">
+								{errors.description.message}
+							</p>
+						)}
 					</div>
-
-					<button
-						className="py-1 px-2 bg-blue-500 text-blue-50 rounded-xs cursor-pointer"
-						type="submit"
-					>
+					<Button type="submit" size={"sm"} className="cursor-pointer">
 						Create Job
-					</button>
+					</Button>
 				</form>
 			</Wrapper>
 		</div>

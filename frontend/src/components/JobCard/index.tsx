@@ -1,6 +1,6 @@
 import { CheckIcon, EllipsisVerticalIcon, StarIcon } from "lucide-react";
 
-interface Props {
+type Props = {
 	id: number;
 	title: string;
 	company: string;
@@ -8,7 +8,7 @@ interface Props {
 	rating: number;
 	jobType: string;
 	jobDescription: string;
-}
+};
 
 export function JobCard(props: Props) {
 	return (

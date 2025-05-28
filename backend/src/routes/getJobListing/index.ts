@@ -1,12 +1,5 @@
-import { initTRPC } from "@trpc/server";
 import { z } from "zod";
-
-// title: string;
-// company: string;
-// location: string;
-// rating: number;
-// jobType: string;
-// jobDescription: string;
+import { trpc } from "../../lib/trpc";
 
 const jobListings = [
 	{
@@ -41,38 +34,16 @@ const jobListings = [
 	},
 ];
 
-const trpc = initTRPC.create();
-
-export const trpcRouter = trpc.router({
-	getJobListings: trpc.procedure
-		.input(
-			z.object({
-				q: z.string().default(""),
-				l: z.string().default(""),
-				sortBy: z.enum(["relevance", "date"]).default("relevance"),
-			}),
-		)
-		.query(({ input }) => {
-			if (input.q) {
-				const filteredJobListings = jobListings.filter((job) =>
-					job.title.toLocaleLowerCase().includes(input.q.toLocaleLowerCase()),
-				);
-
-				return { jobListings: filteredJobListings };
-			}
-			return { jobListings };
+export const getJobListingTrpcRoute = trpc.procedure
+	.input(
+		z.object({
+			jobId: z.string(),
 		}),
-	getJobDetail: trpc.procedure
-		.input(
-			z.object({
-				jobId: z.string(),
-			}),
-		)
-		.query(({ input }) => {
-			const job = jobListings.find((job) => job.id === Number(input.jobId));
-			// if (!job) throw new Error(`Job ${input.jobId} not found`);
-			return { job: job || null };
-		}),
-});
+	)
+	.query(({ input }) => {
+		const jobListing = jobListings.find(
+			(job) => job.id === Number(input.jobId),
+		);
 
-export type TrpcRouter = typeof trpcRouter;
+		return { jobListing: jobListing || null };
+	});

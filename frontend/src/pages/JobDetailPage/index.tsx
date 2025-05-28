@@ -6,7 +6,7 @@ export function JobDetailPage() {
 	const { jobId } = useParams() as { jobId: string };
 	const trpc = useTRPC();
 	const { data, error, isLoading, isFetching, isError } = useQuery(
-		trpc.getJobDetail.queryOptions({ jobId }),
+		trpc.getJobListing.queryOptions({ jobId }),
 	);
 
 	if (isLoading || isFetching) {
@@ -17,14 +17,14 @@ export function JobDetailPage() {
 		return <span>Error: {error.message}</span>;
 	}
 
-	if (!data?.job) {
+	if (!data?.jobListing) {
 		return <span>Job not found.</span>;
 	}
 
 	return (
 		<div>
-			<h2>{data?.job?.title}</h2>
-			<p>{data?.job?.jobDescription}</p>
+			<h2>{data?.jobListing?.title}</h2>
+			<p>{data?.jobListing?.jobDescription}</p>
 		</div>
 	);
 }

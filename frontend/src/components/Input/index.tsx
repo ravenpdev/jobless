@@ -1,8 +1,6 @@
-import type { InputHTMLAttributes } from "react";
-
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+type Props = {
 	label: string;
-}
+} & React.ComponentProps<"input">;
 
 export function Input({ label, name, ...rest }: Props) {
 	return (

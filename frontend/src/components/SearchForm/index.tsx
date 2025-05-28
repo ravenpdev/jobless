@@ -2,11 +2,11 @@ import { MapPin, Search } from "lucide-react";
 import { type FormEvent, useState } from "react";
 import { Wrapper } from "../Wrapper/Wrapper";
 
-interface Props {
+type Props = {
 	searchHandle: (keyword: string, location: string) => void;
 	keyword?: string;
 	location?: string;
-}
+};
 
 export function SearchForm({
 	searchHandle,

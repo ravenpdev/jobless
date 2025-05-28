@@ -1,9 +1,9 @@
-interface Props {
+type Props = {
 	title: string;
 	size: 1 | 2;
 	description?: string;
 	children: React.ReactNode;
-}
+};
 
 export function Segment({ title, size = 1, description, children }: Props) {
 	return (

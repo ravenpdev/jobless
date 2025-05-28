@@ -6,7 +6,7 @@ import { JobDetailPage } from "@/pages/JobDetailPage";
 import { JobPage } from "@/pages/JobPage";
 import { NewJobListingPage } from "@/pages/NewJobListingPage";
 import { SignInPage } from "@/pages/SignInPage";
-import type { TrpcRouter } from "@jobless/backend/src/trpc";
+import type { TrpcRouter } from "@jobless/backend/src/routes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { useState } from "react";
