@@ -7,7 +7,7 @@ type Props = {
 	location: string;
 	rating: number;
 	jobType: string;
-	jobDescription: string;
+	description: string;
 };
 
 export function JobCard(props: Props) {
@@ -46,7 +46,7 @@ export function JobCard(props: Props) {
 					{props.jobType} <CheckIcon size={16} />
 				</p>
 			</div>
-			<p className="mt-4 text-ellipsis">{props.jobDescription}</p>
+			<p className="mt-4 text-ellipsis">{props.description}</p>
 		</div>
 	);
 }

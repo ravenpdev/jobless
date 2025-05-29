@@ -1,6 +1,8 @@
 import { Wrapper } from "@/components/Wrapper/Wrapper";
 import { Button } from "@/components/ui/button";
+import { useTRPC } from "@/lib/trpc";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -8,7 +10,6 @@ const formSchema = z.object({
 	title: z.string().min(1, "title is required."),
 	company: z.string().min(1, "company name is required."),
 	location: z.string().min(1, "location is required."),
-	// jobType: z.enum(["full-time", "part-time"]),
 	jobType: z.string().min(1, "job type is required."),
 	description: z.string().min(1, "description is required."),
 });
@@ -16,6 +17,9 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export function NewJobListingPage() {
+	const trpc = useTRPC();
+	const createJobListing = useMutation(trpc.createJobListing.mutationOptions());
+
 	const {
 		register,
 		handleSubmit,
@@ -24,12 +28,16 @@ export function NewJobListingPage() {
 		resolver: zodResolver(formSchema),
 	});
 
-	const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
+	const onSubmit: SubmitHandler<FormValues> = async (data) => {
+		await createJobListing.mutateAsync(data);
+	};
 
 	return (
 		<div>
 			<Wrapper>
 				<h1>Create New Job</h1>
+
+				{createJobListing.isPending && <p>Creating Job listing</p>}
 
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<div>
