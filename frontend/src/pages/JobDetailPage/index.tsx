@@ -24,7 +24,7 @@ export function JobDetailPage() {
 	return (
 		<div>
 			<h2>{data?.jobListing?.title}</h2>
-			<p>{data?.jobListing?.jobDescription}</p>
+			<p>{data?.jobListing?.description}</p>
 		</div>
 	);
 }
