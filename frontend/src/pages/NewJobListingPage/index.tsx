@@ -143,7 +143,9 @@ export function NewJobListingPage() {
 								</FormItem>
 							)}
 						/>
-						<Button type="submit">Submit</Button>
+						<Button type="submit" disabled={form.formState.isSubmitting}>
+							{form.formState.isSubmitting ? "Creating..." : "Create"}
+						</Button>
 					</form>
 				</Form>
 			</Wrapper>

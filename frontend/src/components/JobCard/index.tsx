@@ -1,6 +1,8 @@
 import { CheckIcon, EllipsisVerticalIcon, StarIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-type Props = {
+type Job = {
 	id: number;
 	title: string;
 	company: string;
@@ -10,9 +12,44 @@ type Props = {
 	description: string;
 };
 
-export function JobCard(props: Props) {
+type Props = {
+	job: Job;
+	setSelected: React.Dispatch<React.SetStateAction<Job | null>>;
+};
+
+export function JobCard({ job, setSelected }: Props) {
+	const navigate = useNavigate();
+	const [windowSize, setWindowSize] = useState([0, 0]);
+
+	useEffect(() => {
+		setWindowSize([window.innerWidth, window.innerHeight]);
+	}, []);
+
+	useEffect(() => {
+		function updateSize() {
+			setWindowSize([window.innerWidth, window.innerHeight]);
+		}
+
+		window.addEventListener("resize", updateSize);
+
+		return () => window.removeEventListener("resize", updateSize);
+	}, []);
+
+	function selectJobHandle() {
+		if (windowSize[0] < 768) {
+			navigate({
+				pathname: `/jobs/${job.id}`,
+			});
+			return;
+		}
+		setSelected(job);
+	}
+
 	return (
-		<div className="group/jobcard text-slate-700 cursor-pointer space-y-2 hover:border-slate-300 p-4 rounded border-1 border-slate-200 text-sm">
+		<div
+			className="group/jobcard text-slate-700 cursor-pointer space-y-2 hover:border-slate-300 p-4 rounded border-1 border-slate-200 text-sm"
+			onClick={selectJobHandle}
+		>
 			<div className="flex justify-between items-center">
 				<div className="flex text-xs flex-wrap gap-2 font-semibold">
 					<p className="bg-orange-50 text-orange-500 py-0.5 px-2">New</p>
@@ -31,22 +68,22 @@ export function JobCard(props: Props) {
 			</div>
 			<div>
 				<h3 className="text-slate-900 group-hover/jobcard:underline font-bold text-lg">
-					{props.title}
+					{job.title}
 				</h3>
 				<p className="flex gap-2 mt-2 space-y-1">
-					{props.company}{" "}
+					{job.company}{" "}
 					<span className="flex gap-2 items-center">
-						{props.rating} <StarIcon size={16} />
+						{job.rating} <StarIcon size={16} />
 					</span>
 				</p>
-				<p>{props.location}</p>
+				<p>{job.location}</p>
 			</div>
 			<div className="flex flex-wrap">
 				<p className="mt-2 flex items-center gap-2 bg-green-100 text-green-600 px-1.5 py-0.5 rounded">
-					{props.jobType} <CheckIcon size={16} />
+					{job.jobType} <CheckIcon size={16} />
 				</p>
 			</div>
-			<p className="mt-4 text-ellipsis">{props.description}</p>
+			<p className="mt-4 text-ellipsis">{job.description}</p>
 		</div>
 	);
 }

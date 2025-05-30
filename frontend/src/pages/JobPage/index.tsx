@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { JobCard } from "@/components/JobCard";
+import { JobLists } from "@/components/JobLists";
 import { SearchForm } from "@/components/SearchForm";
 import { useTRPC } from "@/lib/trpc";
 
@@ -94,17 +94,8 @@ export function JobPage() {
 						</p>
 					</div>
 				</div>
-				<div className="max-w-5xl mt-4 mx-auto gap-4 grid grid-cols-4">
-					<div className="col-span-2">
-						<section className="space-y-4">
-							{data?.jobListings.map((job) => (
-								<JobCard key={job.id} {...job} />
-							))}
-						</section>
-					</div>
-					<div className="col-span-2">
-						<p>job details</p>
-					</div>
+				<div className="max-w-5xl mx-auto">
+					<JobLists jobListings={data?.jobListings} />
 				</div>
 			</section>
 		</>
