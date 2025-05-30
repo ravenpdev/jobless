@@ -1,5 +1,7 @@
-import { Link, Outlet } from "react-router-dom";
-import * as routes from "../../lib/routes";
+import { Link, NavLink, Outlet } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import * as routes from "@/lib/routes";
 
 export function Layout() {
 	return (
@@ -10,9 +12,9 @@ export function Layout() {
 						<h1 className="font-bold text-xl">JOBLESS</h1>
 					</Link>
 					<nav>
-						<ul className="flex gap-4">
+						<ul className="flex space-x-4 items-center">
 							<li>
-								<Link to={routes.getHomeRoute()}>Home</Link>
+								<NavLink to={routes.getHomeRoute()}>Home</NavLink>
 							</li>
 							<li>Company Reviews</li>
 							<li>Find salaries</li>
@@ -20,18 +22,26 @@ export function Layout() {
 					</nav>
 				</div>
 
-				<div className="flex gap-4">
-					<Link
-						className="hover:underline text-blue-600 font-bold"
-						to={routes.getSignInRoute()}
-					>
-						Sign in
-					</Link>
-					<div className="border-l-1"></div>
-					<Link className="hover:underline" to={""}>
-						Employer / Post Job
-					</Link>
-				</div>
+				<ul className="flex space-x-2">
+					<li>
+						<Button asChild variant={"ghost"} size={"sm"}>
+							<Link to={routes.getSignInRoute()}>Sign in</Link>
+						</Button>
+					</li>
+					<li>
+						<Separator orientation="vertical" />
+					</li>
+					<li>
+						<Button
+							className="text-slate-900"
+							asChild
+							variant={"link"}
+							size={"sm"}
+						>
+							<Link to={""}>Employer / Post Job</Link>
+						</Button>
+					</li>
+				</ul>
 			</header>
 
 			<main>

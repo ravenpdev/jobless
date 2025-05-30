@@ -1,21 +1,15 @@
-import { z } from "zod";
 import { jobListings } from "../../lib/joblistings";
 import { trpc } from "../../lib/trpc";
+import { zCreateJobListingTrpcInput } from "./input";
 
 export const createJobListingTrpcRoute = trpc.procedure
-	.input(
-		z.object({
-			title: z.string().min(1, "title is required."),
-			company: z.string().min(1, "company name is required."),
-			location: z.string().min(1, "location is required."),
-			jobType: z.string().min(1, "job type is required."),
-			description: z.string().min(1, "description is required."),
-		}),
-	)
+	.input(zCreateJobListingTrpcInput)
 	.mutation(({ input }) => {
-		return jobListings.unshift({
+		jobListings.unshift({
 			...input,
 			id: jobListings.length + 1,
 			rating: 0,
 		});
+
+		return true;
 	});

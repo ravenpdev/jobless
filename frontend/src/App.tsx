@@ -1,4 +1,10 @@
+import type { TrpcRouter } from "@jobless/backend/src/routes";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { createTRPCClient, httpBatchLink } from "@trpc/client";
+import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Layout } from "@/components/Layout";
+import { Toaster } from "@/components/ui/sonner";
 import * as routes from "@/lib/routes";
 import { TRPCProvider } from "@/lib/trpc";
 import { HomePage } from "@/pages/HomePage";
@@ -6,11 +12,6 @@ import { JobDetailPage } from "@/pages/JobDetailPage";
 import { JobPage } from "@/pages/JobPage";
 import { NewJobListingPage } from "@/pages/NewJobListingPage";
 import { SignInPage } from "@/pages/SignInPage";
-import type { TrpcRouter } from "@jobless/backend/src/routes";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createTRPCClient, httpBatchLink } from "@trpc/client";
-import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function makeQueryClient() {
 	return new QueryClient({
@@ -29,7 +30,7 @@ function makeQueryClient() {
 	});
 }
 
-let browserQueryClient: QueryClient | undefined = undefined;
+let browserQueryClient: QueryClient | undefined;
 
 function getQueryClient() {
 	if (typeof window === "undefined") {
@@ -75,6 +76,7 @@ export function App() {
 						</Route>
 						<Route path={routes.getSignInRoute()} element={<SignInPage />} />
 					</Routes>
+					<Toaster />
 				</BrowserRouter>
 			</TRPCProvider>
 		</QueryClientProvider>

@@ -8,7 +8,7 @@ expressApp.use(cors());
 
 trpcToExpress(expressApp, trpcRouter);
 
-expressApp.get("/ping", (req, res) => {
+expressApp.get("/ping", (_req, res) => {
 	res.send("pong");
 });
 

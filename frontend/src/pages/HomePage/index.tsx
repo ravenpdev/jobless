@@ -1,9 +1,9 @@
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { JobCard } from "@/components/JobCard";
 import { SearchForm } from "@/components/SearchForm";
 import { Wrapper } from "@/components/Wrapper/Wrapper";
 import { useTRPC } from "@/lib/trpc";
-import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 
 export function HomePage() {
 	const navigate = useNavigate();
