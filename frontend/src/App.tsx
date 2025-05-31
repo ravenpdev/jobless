@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import superjson from "superjson";
 import { Layout } from "@/components/Layout";
 import { Toaster } from "@/components/ui/sonner";
 import * as routes from "@/lib/routes";
@@ -52,6 +53,7 @@ export function App() {
 			links: [
 				httpBatchLink({
 					url: "http://localhost:3000/trpc",
+					transformer: superjson,
 				}),
 			],
 		}),

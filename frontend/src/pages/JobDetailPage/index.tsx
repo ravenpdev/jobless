@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { format } from "date-fns";
 import { useParams } from "react-router-dom";
 import { useTRPC } from "@/lib/trpc";
 
@@ -23,8 +24,9 @@ export function JobDetailPage() {
 
 	return (
 		<div>
-			<h2>{data?.jobListing?.title}</h2>
-			<p>{data?.jobListing?.description}</p>
+			<h2>{data.jobListing.title}</h2>
+			<p>{format(data.jobListing.createdAt, "yyyy-MM-dd")}</p>
+			<p>{data.jobListing.description}</p>
 		</div>
 	);
 }

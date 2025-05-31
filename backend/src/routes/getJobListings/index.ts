@@ -11,6 +11,26 @@ export const getJobListingsTrpcRoute = trpc.procedure
 	)
 	.query(async ({ ctx, input }) => {
 		const jobListings = await ctx.prisma.jobListing.findMany({
+			where: {
+				OR: [
+					{
+						title: {
+							contains: input.q,
+							mode: "insensitive",
+						},
+					},
+				],
+			},
+			orderBy:
+				input.sortBy === "date"
+					? { createdAt: "desc" }
+					: {
+							_relevance: {
+								fields: ["title"],
+								search: "database",
+								sort: "asc",
+							},
+						},
 			select: {
 				id: true,
 				title: true,
@@ -21,18 +41,6 @@ export const getJobListingsTrpcRoute = trpc.procedure
 				description: true,
 				createdAt: true,
 				updatedAt: true,
-			},
-			where: {
-				OR: [
-					{
-						title: {
-							contains: input.q,
-						},
-						location: {
-							contains: input.q,
-						},
-					},
-				],
 			},
 		});
 

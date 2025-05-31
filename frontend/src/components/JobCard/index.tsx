@@ -10,8 +10,8 @@ type Job = {
 	rating: number;
 	jobType: string;
 	description: string;
-	createdAt: string;
-	updatedAt: string;
+	createdAt: Date;
+	updatedAt: Date;
 };
 
 type Props = {
