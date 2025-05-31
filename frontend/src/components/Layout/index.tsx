@@ -25,7 +25,7 @@ export function Layout() {
 				<ul className="flex space-x-2">
 					<li>
 						<Button asChild variant={"ghost"} size={"sm"}>
-							<Link to={routes.getSignInRoute()}>Sign in</Link>
+							<Link to={routes.getSignUpRoute()}>Sign up</Link>
 						</Button>
 					</li>
 					<li>
@@ -48,6 +48,17 @@ export function Layout() {
 				<Outlet />
 			</main>
 
+			<footer>Footer</footer>
+		</>
+	);
+}
+
+export function BlankLayout() {
+	return (
+		<>
+			<main>
+				<Outlet />
+			</main>
 			<footer>Footer</footer>
 		</>
 	);

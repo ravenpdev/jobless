@@ -4,7 +4,7 @@ import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import superjson from "superjson";
-import { Layout } from "@/components/Layout";
+import { BlankLayout, Layout } from "@/components/Layout";
 import { Toaster } from "@/components/ui/sonner";
 import * as routes from "@/lib/routes";
 import { TRPCProvider } from "@/lib/trpc";
@@ -13,6 +13,7 @@ import { JobDetailPage } from "@/pages/JobDetailPage";
 import { JobPage } from "@/pages/JobPage";
 import { NewJobListingPage } from "@/pages/NewJobListingPage";
 import { SignInPage } from "@/pages/SignInPage";
+import { SignUpPage } from "./pages/SignUpPage";
 
 function makeQueryClient() {
 	return new QueryClient({
@@ -76,7 +77,10 @@ export function App() {
 								element={<JobDetailPage />}
 							/>
 						</Route>
-						<Route path={routes.getSignInRoute()} element={<SignInPage />} />
+						<Route element={<BlankLayout />}>
+							<Route path={routes.getSignInRoute()} element={<SignInPage />} />
+							<Route path={routes.getSignUpRoute()} element={<SignUpPage />} />
+						</Route>
 					</Routes>
 					<Toaster />
 				</BrowserRouter>
