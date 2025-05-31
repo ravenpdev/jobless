@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { jobListings } from "../../lib/joblistings";
 import { trpc } from "../../lib/trpc";
 
 export const getJobListingsTrpcRoute = trpc.procedure
@@ -10,14 +9,32 @@ export const getJobListingsTrpcRoute = trpc.procedure
 			sortBy: z.enum(["relevance", "date"]).default("relevance"),
 		}),
 	)
-	.query(({ input }) => {
-		if (input.q) {
-			const filteredJobListings = jobListings.filter((job) =>
-				job.title.toLocaleLowerCase().includes(input.q.toLocaleLowerCase()),
-			);
-
-			return { jobListings: filteredJobListings };
-		}
+	.query(async ({ ctx, input }) => {
+		const jobListings = await ctx.prisma.jobListing.findMany({
+			select: {
+				id: true,
+				title: true,
+				company: true,
+				location: true,
+				rating: true,
+				jobType: true,
+				description: true,
+				createdAt: true,
+				updatedAt: true,
+			},
+			where: {
+				OR: [
+					{
+						title: {
+							contains: input.q,
+						},
+						location: {
+							contains: input.q,
+						},
+					},
+				],
+			},
+		});
 
 		return { jobListings };
 	});

@@ -5,12 +5,15 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"dev": "tsx --watch ./src/index.ts",
+		"dev": "tsx watch --include ./env ./src/index.ts",
 		"build": "rimraf ./dist && tsc --build ./tsconfig.json",
 		"start": "node ./dist/index.js",
 		"prettify": "biome check --write",
 		"lint": "biome lint",
-		"types": "tsc --noEmit --project ./tsconfig.json"
+		"types": "tsc --noEmit --project ./tsconfig.json",
+		"prepare": "pnpm db:generate",
+		"db:generate": "prisma generate",
+		"db:push": "prisma db push"
 	},
 	"keywords": [],
 	"author": "",

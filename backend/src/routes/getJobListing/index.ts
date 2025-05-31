@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { jobListings } from "../../lib/joblistings";
 import { trpc } from "../../lib/trpc";
 
 export const getJobListingTrpcRoute = trpc.procedure
@@ -8,10 +7,11 @@ export const getJobListingTrpcRoute = trpc.procedure
 			jobId: z.string(),
 		}),
 	)
-	.query(({ input }) => {
-		const jobListing = jobListings.find(
-			(job) => job.id === Number(input.jobId),
-		);
-
-		return { jobListing: jobListing || null };
+	.query(async ({ ctx, input }) => {
+		const jobListing = await ctx.prisma.jobListing.findUnique({
+			where: {
+				id: input.jobId,
+			},
+		});
+		return { jobListing };
 	});

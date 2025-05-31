@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { JobCard } from "../JobCard";
 
 type Job = {
-	id: number;
+	id: string;
 	title: string;
 	company: string;
 	location: string;
 	rating: number;
 	jobType: string;
 	description: string;
+	createdAt: string;
+	updatedAt: string;
 };
 
 type Props = {
